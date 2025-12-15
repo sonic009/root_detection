@@ -1,4 +1,5 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 import 'root_detection_method_channel.dart';
 
 abstract class RootDetectionPlatform extends PlatformInterface {
@@ -22,7 +23,7 @@ abstract class RootDetectionPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
-  }
+  Future<String?> getPlatformVersion();
+
+  Future<String> getIntegrityToken(String nonce);
 }

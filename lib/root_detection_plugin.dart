@@ -50,4 +50,8 @@ class RootDetectionPlugin {
       "challenge": challenge,
     });
   }
+
+  Future<String> getPlayIntegrityToken(String nonce) {
+    return RootDetectionPlatform.instance.getIntegrityToken(nonce);
+  }
 }
