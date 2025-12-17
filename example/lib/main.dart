@@ -42,6 +42,7 @@ class _MyAppState extends State<MyApp> {
       platformVersion =
           await _rootDetectionPlugin.getPlatformVersion() ??
           'Unknown platform version';
+
       final token = await _rootDetectionPlugin.getPlayIntegrityToken(
         generateNonce(),
       );
