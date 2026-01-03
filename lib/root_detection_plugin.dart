@@ -5,9 +5,11 @@
 // platforms in the `pubspec.yaml` at
 // https://flutter.dev/to/pubspec-plugin-platforms.
 
-import 'root_detection_platform_interface.dart';
 import 'dart:async';
+
 import 'package:flutter/services.dart';
+
+import 'root_detection_platform_interface.dart';
 
 class RootDetectionPlugin {
   static const MethodChannel _channel = MethodChannel(
@@ -49,5 +51,12 @@ class RootDetectionPlugin {
       "keyId": keyId,
       "challenge": challenge,
     });
+  }
+
+  Future<String> getPlayIntegrityToken(String nonce) async {
+    final token = await _channel.invokeMethod<String>("getIntegrityToken", {
+      "nonce": nonce,
+    });
+    return token!;
   }
 }

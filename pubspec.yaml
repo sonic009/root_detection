@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
+  uuid: ^4.5.2
 
 dev_dependencies:
   flutter_test:
@@ -25,9 +26,9 @@ dev_dependencies:
 flutter:
   plugin:
     platforms:
-      #android:
-        #package: dev.ashwani.root_detection
-        #pluginClass: RootDetectionPlugin
+      android:
+        package: com.example.root_detection
+        pluginClass: RootDetectionPlugin
       ios:
         pluginClass: RootDetectionPlugin
         suggestedMinimumOSVersion: "15.8"

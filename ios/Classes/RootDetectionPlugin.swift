@@ -3,6 +3,7 @@ import UIKit
 import DeviceCheck
 import CryptoKit
 
+@available(iOS 14.0, *)
 public class RootDetectionPlugin: NSObject, FlutterPlugin {
 
     public static func register(with registrar: FlutterPluginRegistrar) {

@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:developer' as developer;
+import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:root_detection/root_detection_plugin.dart';
 
@@ -25,6 +27,12 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
   }
 
+  String generateNonce() {
+    final random = Random.secure();
+    final values = List<int>.generate(32, (_) => random.nextInt(256));
+    return values.map((e) => e.toRadixString(16).padLeft(2, '0')).join();
+  }
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
@@ -34,6 +42,17 @@ class _MyAppState extends State<MyApp> {
       platformVersion =
           await _rootDetectionPlugin.getPlatformVersion() ??
           'Unknown platform version';
+
+      final token = await _rootDetectionPlugin.getPlayIntegrityToken(
+        generateNonce(),
+      );
+
+      developer.log(
+        "Integrity token received (length: ${token.length})",
+        name: "PLAY_INTEGRITY",
+      );
+
+      developer.log("$token", name: "_rootDetectionPlugin");
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
