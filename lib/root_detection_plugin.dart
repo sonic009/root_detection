@@ -34,7 +34,7 @@ class RootDetectionPlugin {
   /// Performs attestation on the generated key
   static Future<String> attest({
     required String keyId,
-    required List<int> challenge,
+    required String challenge,
   }) async {
     return await _channel.invokeMethod('attest', {
       "keyId": keyId,
@@ -45,7 +45,7 @@ class RootDetectionPlugin {
   /// Generates an assertion (used for runtime integrity)
   static Future<String> generateAssertion({
     required String keyId,
-    required List<int> challenge,
+    required String challenge,
   }) async {
     return await _channel.invokeMethod('assertion', {
       "keyId": keyId,
