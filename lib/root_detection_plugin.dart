@@ -53,7 +53,7 @@ class RootDetectionPlugin {
     });
   }
 
-  Future<String> getPlayIntegrityToken(String nonce) async {
+  static Future<String> getPlayIntegrityToken(String nonce) async {
     final token = await _channel.invokeMethod<String>("getIntegrityToken", {
       "nonce": nonce,
     });
