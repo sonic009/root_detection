@@ -65,7 +65,7 @@ public class RootDetectionPlugin: NSObject, FlutterPlugin {
         guard
             let args = call.arguments as? [String: Any],
             let keyId = args["keyId"] as? String,
-            let challenge = args["challenge"] as? FlutterStandardTypedData
+            let challenge = args["challenge"] as? String //FlutterStandardTypedData
         else {
             result(FlutterError(code: "BAD_ARGS",
                                 message: "Invalid arguments",
@@ -96,7 +96,7 @@ public class RootDetectionPlugin: NSObject, FlutterPlugin {
         guard
             let args = call.arguments as? [String: Any],
             let keyId = args["keyId"] as? String,
-            let challenge = args["challenge"] as? FlutterStandardTypedData
+            let challenge = args["challenge"] as? String //FlutterStandardTypedData
         else {
             result(FlutterError(code: "BAD_ARGS",
                                 message: "Invalid arguments",
