@@ -73,7 +73,7 @@ public class RootDetectionPlugin: NSObject, FlutterPlugin {
             return
         }
 
-        let challengeHash = SHA256.hash(data: challenge.data)
+        let challengeHash = SHA256.hash(data: challenge.data(using: .utf8))
 
         DCAppAttestService.shared.attestKey(
             keyId,
@@ -104,7 +104,7 @@ public class RootDetectionPlugin: NSObject, FlutterPlugin {
             return
         }
 
-        let challengeHash = SHA256.hash(data: challenge.data)
+        let challengeHash = SHA256.hash(data: challenge.data(using: .utf8))
 
         DCAppAttestService.shared.generateAssertion(
             keyId,
