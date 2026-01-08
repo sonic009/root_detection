@@ -73,7 +73,16 @@ public class RootDetectionPlugin: NSObject, FlutterPlugin {
             return
         }
 
-        let challengeHash = SHA256.hash(data: challenge.data(using: .utf8))
+        guard let challengeData = challenge.data(using: .utf8) else {
+            result(FlutterError(
+                code: "DATA_ERROR",
+                message: "Failed to convert string to Data",
+                details: nil
+            ))
+            return // or handle error
+        }
+
+        let challengeHash = SHA256.hash(data: challengeData)
 
         DCAppAttestService.shared.attestKey(
             keyId,
@@ -104,7 +113,16 @@ public class RootDetectionPlugin: NSObject, FlutterPlugin {
             return
         }
 
-        let challengeHash = SHA256.hash(data: challenge.data(using: .utf8))
+        guard let challengeData = challenge.data(using: .utf8) else {
+            result(FlutterError(
+                code: "DATA_ERROR",
+                message: "Failed to convert string to Data",
+                details: nil
+            ))
+            return // or handle error
+        }
+
+        let challengeHash = SHA256.hash(data: challengeData)
 
         DCAppAttestService.shared.generateAssertion(
             keyId,
