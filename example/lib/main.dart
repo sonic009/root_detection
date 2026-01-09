@@ -44,8 +44,8 @@ class _MyAppState extends State<MyApp> {
           'Unknown platform version';
 
       final token = await RootDetectionPlugin.getPlayIntegrityToken(
-        generateNonce(),
-        "gcProjectNumber",
+        nonce: generateNonce(),
+        gcProjectNumber: "gcProjectNumberL",
       );
 
       developer.log(

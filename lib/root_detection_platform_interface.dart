@@ -25,5 +25,5 @@ abstract class RootDetectionPlatform extends PlatformInterface {
 
   Future<String?> getPlatformVersion();
 
-  Future<String> getIntegrityToken(String nonce);
+  Future<String> getIntegrityToken(String nonce, String gcProjectNumber);
 }

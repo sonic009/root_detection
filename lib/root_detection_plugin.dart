@@ -53,10 +53,10 @@ class RootDetectionPlugin {
     });
   }
 
-  static Future<String> getPlayIntegrityToken(
-    String nonce,
-    String gcProjectNumber,
-  ) async {
+  static Future<String> getPlayIntegrityToken({
+    required String nonce,
+    required String gcProjectNumber,
+  }) async {
     final token = await _channel.invokeMethod<String>("getIntegrityToken", {
       "nonce": nonce,
       "cloudProjectNumber": gcProjectNumber,

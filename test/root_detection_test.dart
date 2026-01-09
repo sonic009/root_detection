@@ -11,7 +11,8 @@ class MockRootDetectionPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<String> getIntegrityToken(String nonce) => Future.value('ABCDEF');
+  Future<String> getIntegrityToken(String nonce, String gcProjectNumber) =>
+      Future.value('ABCDEF');
 }
 
 void main() {
@@ -30,6 +31,12 @@ void main() {
   });
 
   test('getPlayIntegrityToken', () async {
-    //..
+    expect(
+      await RootDetectionPlugin.getPlayIntegrityToken(
+        nonce: "nonce",
+        gcProjectNumber: "gcProjectNumber",
+      ),
+      'ABCDEF',
+    );
   });
 }
