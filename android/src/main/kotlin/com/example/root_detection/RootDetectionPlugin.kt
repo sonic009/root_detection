@@ -43,10 +43,17 @@ class RootDetectionPlugin : FlutterPlugin, MethodCallHandler {
                     return
                 }
 
+                val gcProjectNumber = call.argument<String>("cloudProjectNumber")
+                if (gcProjectNumber.isNullOrEmpty()) {
+                    result.error("INVALID_GCPROJECTNUMBER", "GC Project Number is required", null)
+                    return
+                }
+
                 var replied = false
 
                 integrityHelper.requestIntegrityToken(
                     nonce = nonce,
+                    cloudProjectNumber = gcProjectNumber,
                     onSuccess = { token ->
                         Log.d("ROOT_PLUGIN", "Token length = ${token.length}");
 

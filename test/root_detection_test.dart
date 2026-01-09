@@ -9,6 +9,9 @@ class MockRootDetectionPlatform
     implements RootDetectionPlatform {
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
+
+  @override
+  Future<String> getIntegrityToken(String nonce) => Future.value('ABCDEF');
 }
 
 void main() {
@@ -24,5 +27,9 @@ void main() {
     RootDetectionPlatform.instance = fakePlatform;
 
     expect(await rootDetectionPlugin.getPlatformVersion(), '42');
+  });
+
+  test('getPlayIntegrityToken', () async {
+    //..
   });
 }

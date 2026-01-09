@@ -9,11 +9,13 @@ class PlayIntegrityHelper(context: Context) {
 
     fun requestIntegrityToken(
         nonce: String,
+        cloudProjectNumber: String,
         onSuccess: (String) -> Unit,
         onError: (Exception) -> Unit
     ) {
         val request = IntegrityTokenRequest.builder()
             .setNonce(nonce)
+            .setCloudProjectNumber(cloudProjectNumber)
             .build()
 
         integrityManager.requestIntegrityToken(request)
