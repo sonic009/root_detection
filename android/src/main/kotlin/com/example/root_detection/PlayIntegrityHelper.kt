@@ -15,7 +15,7 @@ class PlayIntegrityHelper(context: Context) {
     ) {
         val request = IntegrityTokenRequest.builder()
             .setNonce(nonce)
-            .setCloudProjectNumber(cloudProjectNumber)
+            .setCloudProjectNumber(cloudProjectNumber.toLong())
             .build()
 
         integrityManager.requestIntegrityToken(request)
