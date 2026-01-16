@@ -18,7 +18,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _platformVersion = 'UNKNOWN';
   final _rootDetectionPlugin = RootDetectionPlugin();
 
   @override
@@ -43,9 +43,74 @@ class _MyAppState extends State<MyApp> {
           await _rootDetectionPlugin.getPlatformVersion() ??
           'Unknown platform version';
 
+      setState(() {
+        _platformVersion = platformVersion;
+      });
+
+      if (mounted == false) return;
+
+      //MARK: Proceed with root detection based on platform if you are sure the minimum OS version is met.
+      if (Theme.of(context).platform == TargetPlatform.iOS) {
+        proceedWithiOSRootDetection();
+      } else if (Theme.of(context).platform == TargetPlatform.android) {
+        proceedWithAndroidRootDetection();
+      }
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+  }
+
+  //MARK: iOS root detection logic can be implemented here,
+  void proceedWithiOSRootDetection() async {
+    final isSupported = await RootDetectionPlugin.isSupported();
+    developer.log("isSupported: $isSupported", name: "ROOT_DETECTION");
+
+    if (isSupported) {
+      final keyId = await RootDetectionPlugin.generateKey();
+      developer.log("Generated Key ID: $keyId", name: "ROOT_DETECTION");
+
+      //Get a random challenge from your server in production,
+      final challenge = "sample_challenge";
+
+      final attestation = await RootDetectionPlugin.attest(
+        keyId: keyId,
+        challenge: challenge,
+      );
+      developer.log("Attestation: $attestation", name: "ROOT_DETECTION");
+
+      //MARK: Use the attestation on your server to verify device integrity before proceeding.
+      /*
+      final isDeviceIntegrityValid = await verifyAttestationOnServer(attestation);
+      if (!isDeviceIntegrityValid) {
+        developer.log("Device integrity check failed.", name: "ROOT_DETECTION");
+        return;
+      }
+      */
+
+      final assertion = await RootDetectionPlugin.generateAssertion(
+        keyId: keyId,
+        challenge: challenge,
+      );
+      developer.log("Assertion: $assertion", name: "ROOT_DETECTION");
+    }
+  }
+
+  //MARK: Android root detection logic can be implemented here,
+  void proceedWithAndroidRootDetection() async {
+    final isSupported = await RootDetectionPlugin.isSupported();
+    developer.log("isSupported: $isSupported", name: "ROOT_DETECTION");
+
+    if (isSupported) {
+      final keyId = await RootDetectionPlugin.generateKey();
+      developer.log("Generated Key ID: $keyId", name: "ROOT_DETECTION");
+
+      //Get a random nonce from your server in production,
+      //nonce should be in base64url format without padding,
+      final nonce = generateNonce();
+
       final token = await RootDetectionPlugin.getPlayIntegrityToken(
-        nonce: generateNonce(),
-        gcProjectNumber: "gcProjectNumberL",
+        nonce: nonce,
+        gcProjectNumber: "gcProjectNumber", // your Google Cloud project number
       );
 
       developer.log(
@@ -53,19 +118,21 @@ class _MyAppState extends State<MyApp> {
         name: "PLAY_INTEGRITY",
       );
 
-      developer.log("$token", name: "_rootDetectionPlugin");
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      //MARK: Use the token on your server to verify device integrity before proceeding.
+      /*
+      final isDeviceIntegrityValid = await verifyPlayIntegrityTokenOnServer(token);
+      if (!isDeviceIntegrityValid) {
+        developer.log("Device integrity check failed.", name: "ROOT_DETECTION");
+        return;
+      }
+      */
+
+      final assertion = await RootDetectionPlugin.generateAssertion(
+        keyId: keyId,
+        challenge: nonce,
+      );
+      developer.log("Assertion: $assertion", name: "ROOT_DETECTION");
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   @override

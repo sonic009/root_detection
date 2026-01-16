@@ -30,12 +30,11 @@ void main() {
     expect(await rootDetectionPlugin.getPlatformVersion(), '42');
   });
 
-  test('getPlayIntegrityToken', () async {
+  test('getIntegrityToken via plugin', () async {
+    MockRootDetectionPlatform fakePlatform = MockRootDetectionPlatform();
+
     expect(
-      await RootDetectionPlugin.getPlayIntegrityToken(
-        nonce: "nonce",
-        gcProjectNumber: "gcProjectNumber",
-      ),
+      await fakePlatform.getIntegrityToken("nonce", "gcProjectNumber"),
       'ABCDEF',
     );
   });
