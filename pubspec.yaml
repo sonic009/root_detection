@@ -4,6 +4,8 @@ version: 1.0.0
 repository: https://github.com/sonic009/root_detection
 homepage: https://github.com/sonic009/root_detection
 
+license: MIT
+
 
 environment:
   sdk: ^3.9.0
