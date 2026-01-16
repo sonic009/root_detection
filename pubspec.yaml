@@ -1,9 +1,9 @@
 name: root_detection
 description: "A root detection Flutter plugin project."
-version: 0.0.1
-#repository: git URL
+version: 1.0.0
+repository: https://github.com/sonic009/root_detection
+homepage: https://github.com/sonic009/root_detection
 
-publish_to: "none"
 
 environment:
   sdk: ^3.9.0

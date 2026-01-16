@@ -101,11 +101,8 @@ class _MyAppState extends State<MyApp> {
     developer.log("isSupported: $isSupported", name: "ROOT_DETECTION");
 
     if (isSupported) {
-      final keyId = await RootDetectionPlugin.generateKey();
-      developer.log("Generated Key ID: $keyId", name: "ROOT_DETECTION");
-
-      //Get a random nonce from your server in production,
-      //nonce should be in base64url format without padding,
+      //NOTE: Get a random nonce from your server in production,
+      //NOTE: nonce should be in base64url format without padding,
       final nonce = generateNonce();
 
       final token = await RootDetectionPlugin.getPlayIntegrityToken(
@@ -126,12 +123,6 @@ class _MyAppState extends State<MyApp> {
         return;
       }
       */
-
-      final assertion = await RootDetectionPlugin.generateAssertion(
-        keyId: keyId,
-        challenge: nonce,
-      );
-      developer.log("Assertion: $assertion", name: "ROOT_DETECTION");
     }
   }
 

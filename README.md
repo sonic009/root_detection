@@ -1,18 +1,89 @@
-# root_detection
+🧩 root_detection
 
-A new Flutter plugin project.
+A lightweight Flutter plugin to detect rooted (Android) / jailbroken (iOS) devices and improve app security with help of your server.
 
-## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/to/develop-plugins),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+✨ Features
+- Root/jailbreak detection on Android & iOS
+- Small footprint, fast checks
+- Simple async API
+- Android 8+ and iOS 15.6+ support
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 
-The plugin project was generated without specifying the `--platforms` flag, no platforms are currently supported.
-To add platforms, run `flutter create -t plugin --platforms <platforms> .` in this directory.
-You can also find a detailed instruction on how to add platforms in the `pubspec.yaml` at https://flutter.dev/to/pubspec-plugin-platforms.
+Table of contents
+- Installation
+- Usage
+- API
+- Platform notes
+- Example
+- Notes/Security considerations
+- Issues & Contributions
+- License
+
+
+🚀 Installation
+
+Add this to your pubspec.yaml:
+
+dependencies:
+  root_detection: ^1.0.0
+
+
+🤖 Run:
+  flutter pub get
+  
+
+
+🔧 Usage
+
+import 'package:root_detection/root_detection_plugin.dart';
+
+final isSupported = await RootDetectionPlugin.isSupported();
+
+final keyId = await RootDetectionPlugin.generateKey();
+
+final token = await RootDetectionPlugin.getPlayIntegrityToken(
+        nonce: nonce,
+        gcProjectNumber: "gcProjectNumber", // your Google Cloud project number
+      );
+
+
+ 
+🔑 API (summary)
+
+- isSupported(): Future<bool> — checks runtime support
+- generateKey(): Future<String> — creates or returns a key identifier
+- getPlayIntegrityToken({required String nonce, required String gcProjectNumber}): Future<String> — Android Play Integrity token   
+
+
+🚉 Platform notes
+
+- Android: Uses Play Integrity (when available) and multiple heuristics for rooting detection. Provide Google Cloud project number to obtain tokens.
+
+- iOS: Uses common jailbreak indicators. No platform can guarantee 100% detection.
+
+
+📦 Example
+
+- See the /example folder for a minimal working app demonstrating integration and error handling.
+
+
+⚠️ Note/Security considerations
+
+- Root detection is not 100% foolproof
+- Use this as an extra security layer
+
+
+🐞 Issues & Contributions
+
+Feel free to:
+- Report bugs
+- Open pull requests
+- Suggest features
+👉 GitHub: https://github.com/sonic009/root_detection
+
+
+📄 License
+
+MIT License
+© 2026 Ashwani

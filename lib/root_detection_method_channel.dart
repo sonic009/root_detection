@@ -29,10 +29,10 @@ class MethodChannelRootDetection extends RootDetectionPlatform {
 
 //Earlier!
 // @override
-  // Future<String> getIntegrityToken(String nonce) async {
-  //   final token = await methodChannel.invokeMethod<String>(
-  //     'getIntegrityToken',
-  //     {'nonce': nonce},
-  //   );
-  //   return token!;
-  // }
+// Future<String> getIntegrityToken(String nonce) async {
+//   final token = await methodChannel.invokeMethod<String>(
+//     'getIntegrityToken',
+//     {'nonce': nonce},
+//   );
+//   return token!;
+// }
